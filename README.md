@@ -1,3 +1,5 @@
+### NOTICE: THIS IS A FORK OF NekoInverter's [EhViewer](https://gitlab.com/NekoInverter/EhViewer)
+
 ### [下载](https://install.appcenter.ms/users/nekoinverter/apps/ehviewer/distribution_groups/public)
 
 [Download](https://install.appcenter.ms/users/nekoinverter/apps/ehviewer/distribution_groups/public)
