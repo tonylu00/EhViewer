@@ -32,29 +32,11 @@ jobs:
           ALIAS_PASS: ${{ secrets.ALIAS_PASS }}
         run: |
           ./gradlew assembleRelease
-      - name: Create Release
-        id: create_release
-        if: ${{ github.event_name == 'label' }}
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      - name: Release
+        if: ${{ github.event_name == 'release' }}
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: ${{ github.ref_name }}
-          release_name: ${{ github.ref_name }}
-          body: ""
-          draft: false
-          prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset
-        if: ${{ github.event_name == 'label' }}
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps
-          asset_path: app/build/outputs/apk/release/app-release.apk
-          asset_name: app-release.apk
-          asset_content_type: application/vnd.android.package-archive
+          files: app/build/outputs/apk/release/app-release.apk
       - uses: actions/upload-artifact@master
         name: Upload artifact
         with:
