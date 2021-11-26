@@ -92,6 +92,8 @@ public class Settings {
     public static final String KEY_READ_CACHE_SIZE = "read_cache_size";
     public static final int DEFAULT_READ_CACHE_SIZE = 320;
     public static final String KEY_BUILT_IN_HOSTS = "built_in_hosts_2";
+    public static final String KEY_DOH = "dns_over_https";
+    public static final String KEY_DOH_HOST = "dns_over_https_host";
     public static final String KEY_DOMAIN_FRONTING = "domain_fronting";
     public static final String KEY_APP_LANGUAGE = "app_language";
     private static final String TAG = Settings.class.getSimpleName();
@@ -242,6 +244,8 @@ public class Settings {
     private static final String KEY_SAVE_CRASH_LOG = "save_crash_log";
     private static final boolean DEFAULT_SAVE_CRASH_LOG = true;
     private static final boolean DEFAULT_BUILT_IN_HOSTS = false;
+    private static final boolean DEFAULT_DOH = false;
+    private static final String DEFAULT_DOH_HOST = "https://1.0.0.1:443/dns-query";
     private static final boolean DEFAULT_FRONTING = false;
     private static final String DEFAULT_APP_LANGUAGE = "system";
     private static final String KEY_PROXY_TYPE = "proxy_type";
@@ -283,6 +287,12 @@ public class Settings {
     private static void fixDefaultValue(Context context) {
         if ("CN".equals(Locale.getDefault().getCountry())) {
             // Enable domain fronting if the country is CN
+            if (!sSettingsPre.contains(KEY_DOH)) {
+                putDoH(true);
+            }
+            if (!sSettingsPre.contains(KEY_DOH_HOST)) {
+                putDoHHost("https://1.0.0.1:443/dns-query");
+            }
             if (!sSettingsPre.contains(KEY_BUILT_IN_HOSTS)) {
                 putBuiltInHosts(true);
             }
@@ -294,6 +304,9 @@ public class Settings {
                 putShowTagTranslations(true);
 
             }
+        }
+        if (!sSettingsPre.contains(KEY_DOH_HOST)) {
+            putDoH(true);
         }
     }
 
@@ -953,11 +966,11 @@ public class Settings {
         boolean writeFile = false;
         String userID = getString(KEY_USER_ID, null);
         File file = AppConfig.getFileInExternalAppDir(FILENAME_USER_ID);
-        if (null == userID || !isValidUserID(userID)) {
+        if (!isValidUserID(userID)) {
             writeXml = true;
             // Get use ID from out sd card file
             userID = FileUtils.read(file);
-            if (null == userID || !isValidUserID(userID)) {
+            if (!isValidUserID(userID)) {
                 writeFile = true;
                 userID = generateUserID();
             }
@@ -1060,6 +1073,22 @@ public class Settings {
 
     public static void putBuiltInHosts(boolean value) {
         putBoolean(KEY_BUILT_IN_HOSTS, value);
+    }
+
+    public static boolean getDoH() {
+        return getBoolean(KEY_DOH, DEFAULT_DOH);
+    }
+
+    public static void putDoH(boolean value) {
+        putBoolean(KEY_DOH, value);
+    }
+
+    public static String getDoHHost() {
+        return getString(KEY_DOH_HOST, DEFAULT_DOH_HOST);
+    }
+
+    public static void putDoHHost(String value) {
+        putString(KEY_DOH_HOST, value);
     }
 
     public static boolean getDF() {

@@ -36,10 +36,11 @@ import androidx.annotation.StringRes;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentActivity;
 
-import com.hippo.ehviewer.Analytics;
 import com.hippo.ehviewer.ui.MainActivity;
 import com.hippo.scene.SceneFragment;
 import com.hippo.util.AppHelper;
+
+import java.util.Objects;
 
 public abstract class BaseScene extends SceneFragment {
 
@@ -220,7 +221,7 @@ public abstract class BaseScene extends SceneFragment {
         setNavCheckedItem(getNavCheckedItem());
 
         // Hide soft ime
-        AppHelper.hideSoftInput(getActivity());
+        AppHelper.hideSoftInput(requireActivity());
         setLightStatusBar(needWhiteStatusBar);
     }
 
@@ -261,7 +262,6 @@ public abstract class BaseScene extends SceneFragment {
     @Override
     public void onResume() {
         super.onResume();
-        Analytics.onSceneView(this);
     }
 
     @Override

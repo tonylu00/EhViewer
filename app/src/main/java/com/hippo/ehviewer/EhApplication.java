@@ -341,7 +341,6 @@ public class EhApplication extends SceneApplication {
             EhDB.mergeOldDB(this);
         }
 
-        Analytics.start(this);
 
         LocaleDelegate.setDefaultLocale(Settings.getLocale());
         DayNightDelegate.setApplicationContext(this);

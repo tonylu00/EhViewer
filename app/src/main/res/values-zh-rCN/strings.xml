@@ -752,4 +752,6 @@
     <string name="read_from">从第 %d 页阅读</string>
     <string name="settings_request_news_title">启动时请求新闻页面</string>
     <string name="copy_trans">复制翻译</string>
+    <string name="settings_advanced_dns_over_http_host_title">安全 DNS（DoH）主机名</string>
+    <string name="settings_advanced_dns_over_http_host_summary">编辑安全 DNS（DoH）主机名</string>
 </resources>
