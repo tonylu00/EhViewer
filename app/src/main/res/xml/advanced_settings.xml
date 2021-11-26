@@ -88,6 +88,20 @@
 
     <SwitchPreference
         android:defaultValue="false"
+        android:key="dns_over_https"
+        android:summary="@string/settings_advanced_dns_over_http_summary"
+        android:title="@string/settings_advanced_dns_over_http_title"
+        app:iconSpaceReserved="false" />
+
+    <EditTextPreference
+        android:defaultValue="https://1.0.0.1:443/dns-query"
+        android:key="dns_over_https_host"
+        android:summary="@string/settings_advanced_dns_over_http_host_summary"
+        android:title="@string/settings_advanced_dns_over_http_host_title"
+        app:iconSpaceReserved="false" />
+
+    <SwitchPreference
+        android:defaultValue="false"
         android:key="domain_fronting"
         android:summary="@string/settings_advanced_domain_fronting_summary"
         android:title="@string/settings_advanced_domain_fronting_title"
