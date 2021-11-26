@@ -27,9 +27,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.hippo.ehviewer.Analytics;
 import com.hippo.ehviewer.R;
-import com.hippo.ehviewer.Settings;
 import com.hippo.ehviewer.ui.MainActivity;
 import com.hippo.text.Html;
 import com.hippo.yorozuya.ViewUtils;
@@ -80,14 +78,6 @@ public class AnalyticsScene extends SolidScene implements View.OnClickListener {
         if (context == null || activity == null) {
             return;
         }
-
-        if (mReject == v) {
-            Settings.putEnableAnalytics(false);
-        } else if (mAccept == v) {
-            Settings.putEnableAnalytics(true);
-        }
-        Analytics.setEnabled(Settings.getEnableAnalytics());
-        Settings.putAskAnalytics(false);
 
         // Start new scene and finish it self
         startSceneForCheckStep(CHECK_STEP_ANALYTICS, getArguments());
